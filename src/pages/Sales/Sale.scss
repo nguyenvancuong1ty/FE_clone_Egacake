@@ -1,0 +1,13 @@
+.wrap {
+    background-color: #dbd9d9;
+    padding-top: 24px;
+
+    .product {
+        margin-left: 8px;
+    }
+}
+.cake_sale {
+    padding: 8px 0;
+    display: flex;
+    flex-wrap: wrap;
+}

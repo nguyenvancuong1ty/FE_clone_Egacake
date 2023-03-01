@@ -2,6 +2,7 @@ import './Authentication.scss';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '~/components/Header';
 function Register() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -10,7 +11,7 @@ function Register() {
         email: '',
     });
     const regex =
-        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
     const [username, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -23,16 +24,20 @@ function Register() {
 
     const handleChangeName = (e) => {
         setName(e.target.value);
+        setNameSmall('');
     };
     const handleChangeEmail = (e) => {
         setEmail(e.target.value);
+        setEmailSmall('');
     };
 
     const handleChangePassword = (e) => {
         setPassword(e.target.value);
+        setPasswordSmall('');
     };
     const handleChangeConfirm = (e) => {
         setConfirm(e.target.value);
+        setConfirmSmall('');
     };
     useEffect(() => {
         setFormData({ username: username, password: password, email: email });
@@ -129,13 +134,11 @@ function Register() {
     };
     return (
         <>
+            <Header />
             <div className="mt-120"></div>
             <form action="/create-user" className="register" method="post">
                 <div className="register__content">
-                    <h1 className="register__title">
-                        Đăng ký
-                        <span className="cancel">X</span>
-                    </h1>
+                    <h1 className="register__title">Đăng ký</h1>
                     <div className="register__input--item">
                         <label htmlFor="" className="register__input--text">
                             Nhập tài khoản

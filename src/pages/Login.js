@@ -1,11 +1,28 @@
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import './Authentication.scss';
 import axios from 'axios';
+import Header from '~/components/Header';
 function Login() {
+    const successLogin = () => {
+        toast.success('Login Success', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 2000,
+        });
+    };
+
+    const errorLogin = () => {
+        toast.error('Invalid Username or Password', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 2000,
+        });
+    };
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const inputRef = useRef();
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
     };
@@ -22,22 +39,22 @@ function Login() {
             },
         }).then((res) => {
             if (res.data.statusCode) {
-                alert('login OK');
-                navigate('/');
+                localStorage.setItem('user_id', res.data.data[0].id);
+                localStorage.setItem('isLogin', true);
+                successLogin();
+                res.data.data[0].authorization === 1 ? navigate('/admin/manager/users') : navigate('/');
             } else {
-                alert('Invalid Username or Password');
+                errorLogin();
+                inputRef.current.focus();
             }
         });
     };
-    console.log(username, password);
     return (
         <>
+        <Header/>
             <div className="mt-120"></div>
             <form className="login">
-                <h1 className="login__title">
-                    Đăng nhập
-                    <span className="cancel">X</span>
-                </h1>
+                <h1 className="login__title">Đăng nhập</h1>
                 <div className="login__input--item">
                     <label htmlFor="" className="login__input--text">
                         Nhập tài khoản
@@ -55,6 +72,7 @@ function Login() {
                         Nhập mật khẩu
                     </label>
                     <input
+                        ref={inputRef}
                         type="password"
                         name="password"
                         className="login__input--input"
@@ -72,6 +90,7 @@ function Login() {
                     <button type="button" className="login__input--submit" onClick={handleSubmit}>
                         Đăng nhập
                     </button>
+                    <ToastContainer />
                     <p className="login__input--login">
                         Chưa có tài khoản bấm
                         <NavLink to="/register" className="login__input--link">
@@ -80,7 +99,6 @@ function Login() {
                     </p>
                 </div>
             </form>
-            
         </>
     );
 }
