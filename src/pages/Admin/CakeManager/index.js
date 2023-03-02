@@ -4,7 +4,7 @@ import Loading from '~/components/Loading';
 import { useFetch } from '~/hooks/useFetch';
 
 function CakeManager() {
-    const res = useFetch('get', '/v1/api/cakedetail');
+    const res = useFetch('get', 'v1/api/cakedetail');
     const [data, setData] = useState([]);
     const [isloading, setLoading] = useState(true);
     useEffect(() => {
@@ -34,8 +34,8 @@ function CakeManager() {
                             <th scope="col">Time Sale</th>
                         </tr>
                     </thead>
-                    {isloading && <Loading />}
                     <tbody>
+                    {isloading && <Loading colspan={10}/>}
                         {data &&
                             data.map((item, index) => {
                                 return (

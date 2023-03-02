@@ -1,18 +1,24 @@
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Cart from '../Cart';
 function Header() {
+    const navigate = useNavigate();
     const numberProduct = localStorage.getItem('number_product');
-    const [isLogin, setLogin] = useState(false);
-    useEffect(() => {
-        localStorage.getItem('isLogin') && setLogin(true);
-    }, []);
+    const [isLogin, setLogin] = useState(localStorage.getItem('isLogin'));
+    const [isShow, setShow] = useState(false);
+    const notify = () => toast.success('Logout Success !', { autoClose: 1500 });
     return (
         <header>
             <div className="container">
                 <div className="row header">
                     <div className="col-xl-3">
-                        <img src="/img/logo.webp" alt="" className="logo" />
+                        <img
+                            src="https://theme.hstatic.net/200000460475/1000990214/14/logo.png?v=127"
+                            alt=""
+                            className="logo"
+                        />
                     </div>
                     <div className="col-xl-5">
                         <div className="header-input">
@@ -45,22 +51,53 @@ function Header() {
                                 </NavLink>
                             </li>
                             <li className="header__opstion--item account">
-                                {isLogin ? (
-                                    <div
-                                        className="header__opstion--link"
-                                        onClick={() => {
-                                            localStorage.clear();
-                                            localStorage.setItem('number_product',0);
-                                            setLogin(false);
-                                        }}
-                                    >
-                                        <img
-                                            src="https://raw.githubusercontent.com/nguyenvancuong1ty/imagas/main/account-icon.webp"
-                                            alt=""
-                                            className="header__opstion--img"
-                                        />
-                                        <p className="header__opstion--title">Logout</p>
-                                    </div>
+                                {isLogin === 'true' ? (
+                                    <>
+                                        <div
+                                            className="header__opstion--link"
+                                            onClick={() => {
+                                                setShow(true);
+                                            }}
+                                        >
+                                            <img
+                                                src="https://raw.githubusercontent.com/nguyenvancuong1ty/imagas/main/account-icon.webp"
+                                                alt=""
+                                                className="header__opstion--img"
+                                            />
+                                            <p className="header__opstion--title">Logout</p>
+                                        </div>
+
+                                        <div className={isShow ? 'overlay show' : 'overlay'}>
+                                            <div className="modals">
+                                                <b>Bạn có muốn đăng xuất không</b>
+                                                <div className="btn">
+                                                    <button
+                                                        className="btn_modal"
+                                                        onClick={() => {
+                                                            setShow(false);
+                                                        }}
+                                                    >
+                                                        Close
+                                                    </button>
+                                                    <button
+                                                        className="btn_modal"
+                                                        onClick={() => {
+                                                            setShow(false);
+                                                            localStorage.clear();
+                                                            localStorage.setItem('number_product', 0);
+                                                            setLogin(false);
+                                                            notify();
+                                                            setTimeout(() => {
+                                                                navigate('/');
+                                                            }, 1500);
+                                                        }}
+                                                    >
+                                                        Ok
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </>
                                 ) : (
                                     <NavLink to="/login" className="header__opstion--link">
                                         <img
@@ -129,6 +166,7 @@ function Header() {
                     </ul>
                 </div>
             </div>
+            <ToastContainer />
         </header>
     );
 }

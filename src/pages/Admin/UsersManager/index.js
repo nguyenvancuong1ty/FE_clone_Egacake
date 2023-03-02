@@ -6,7 +6,7 @@ import { useFetch } from '~/hooks/useFetch';
 import { useHeaderData } from '~/hooks/useHeaderData';
 function UsersManager() {
     localStorage.setItem('number_product', useHeaderData());
-    const res = useFetch('get', '/v1/api/users');
+    const res = useFetch('get', 'v1/api/users');
     const [data, setData] = useState([]);
     const [isloading, setLoading] = useState(true);
     useEffect(() => {
@@ -17,7 +17,7 @@ function UsersManager() {
     }, [res]);
     const handleDelete = (userId) => {
         axios
-            .delete('/v1/api/users', {
+            .delete('v1/api/users', {
                 data: { id: userId },
             })
             .then((response) => {
@@ -43,7 +43,7 @@ function UsersManager() {
                         </tr>
                     </thead>
                     <tbody>
-                        {isloading && <Loading />}
+                        {isloading && <Loading colspan={5} />}
                         {data &&
                             data.map((item, index) => {
                                 return (

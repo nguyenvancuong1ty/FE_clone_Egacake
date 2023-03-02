@@ -4,7 +4,7 @@ import Header from '~/components/Header';
 import Loading from '~/components/Loading';
 import { useFetch } from '~/hooks/useFetch';
 function TypeCakeManager() {
-    const res = useFetch('get', '/v1/api/cakes');
+    const res = useFetch('get', 'v1/api/cakes');
     const [data, setData] = useState([]);
     const [isLoading, setLoading] = useState(true);
     useEffect(() => {
@@ -40,8 +40,8 @@ function TypeCakeManager() {
                             <th scope="col">Xóa</th>
                         </tr>
                     </thead>
-                    {isLoading && <Loading />}
                     <tbody>
+                    {isLoading && <Loading colspan={4}/>}
                         {data &&
                             data.map((item, index) => {
                                 return (

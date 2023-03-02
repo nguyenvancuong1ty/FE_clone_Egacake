@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useFetch } from '~/hooks/useFetch';
 function Cart() {
-    let url = `/v1/api/cake_by_cart/${localStorage.getItem('user_id')}`;
+    let url = `v1/api/cake_by_cart/${localStorage.getItem('user_id')}`;
     const res = useFetch('get', url);
     const [data, setData] = useState([]);
     useEffect(() => {
         setData(res);
-    }, [res,data]);
-    
+    }, [res, data]);
+
     let total = data.reduce((init, item) => {
         return init + (item.price - (item.price * item.sale) / 100) * item.total_quantity;
     }, 0);

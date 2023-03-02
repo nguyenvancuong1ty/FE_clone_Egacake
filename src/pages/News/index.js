@@ -3,7 +3,7 @@ import Header from '~/components/Header';
 import { useFetch } from '~/hooks/useFetch';
 
 function News() {
-    const news = useFetch('get', '/v1/api/news');
+    const news = useFetch('get', 'v1/api/news');
     return (
         <>
         <Header/>

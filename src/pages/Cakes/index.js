@@ -8,7 +8,7 @@ import { useFetch } from '~/hooks/useFetch';
 
 function Cakes() {
     const { categorycake } = useParams();
-    const res = useFetch('get', '/v1/api/cakedetail');
+    const res = useFetch('get', 'v1/api/cakedetail');
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -30,7 +30,7 @@ function Cakes() {
     }, [categorycake, res]);
     return (
         <>
-            <Header/>
+            <Header />
             <div className="mt-120"></div>
             <div className="container df">
                 <div className="body__left">
@@ -39,13 +39,13 @@ function Cakes() {
                 <div className="body__right">
                     <div className="body__right--flashsale">
                         <div className="flashsale__content">
-                            {loading && <Loading />}
+                            <table>
+                                <thead>{loading && <Loading />}</thead>
+                            </table>
                             <div className="grids">
                                 {data &&
                                     data.map((item, index) => {
-                                        return (
-                                            <FlashSaleItem item = {item} key = {index} col = {4}/>
-                                        );
+                                        return <FlashSaleItem item={item} key={index} col={4} />;
                                     })}
                             </div>
                         </div>

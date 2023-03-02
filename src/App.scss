@@ -103,6 +103,60 @@ header {
 
     .account {
         cursor: pointer;
+
+        .overlay {
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0.4;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            transform: translateY(-50%);
+            display: none;
+            z-index: 9999;
+        }
+
+        b {
+            font-size: 16px;
+        }
+
+        .modals {
+            background-color: var(--primary-color--);
+            width: 400px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .btn_modal {
+            width: 80px;
+            padding: 8px 16px;
+            margin: 24px 16px;
+            border: none;
+            border-radius: 99px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .show {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: ani 0.4s linear forwards;
+        }
+
+        @keyframes ani {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     }
 }
 
@@ -230,4 +284,15 @@ header {
     100% {
         transform: scale(1) rotate(-5deg);
     }
+}
+.bbbutton {
+    padding: 6px 12px;
+    border: none;
+    outline: none;
+    background: var(--primary-color--);
+    color: white;
+    font-weight: 900;
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }

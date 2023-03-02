@@ -3,7 +3,7 @@ import Header from '~/components/Header';
 import Loading from '~/components/Loading';
 import { useFetch } from '~/hooks/useFetch';
 function RecipeManager() {
-    const res = useFetch('get', '/v1/api/news');
+    const res = useFetch('get', 'v1/api/news');
     const [data, setData] = useState([]);
     const [isloading, setLoading] = useState(true);
     useEffect(() => {
@@ -31,7 +31,7 @@ function RecipeManager() {
                         </tr>
                     </thead>
                     <tbody>
-                        {isloading && <Loading />}
+                        {isloading && <Loading colspan={6}/>}
                         {data &&
                             data.map((item, index) => {
                                 return (

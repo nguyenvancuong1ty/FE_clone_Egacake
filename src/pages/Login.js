@@ -32,7 +32,7 @@ function Login() {
     const handleSubmit = () => {
         axios({
             method: 'post',
-            url: '/v1/api/login',
+            url: 'http://18.143.149.62:3000/v1/api/login',
             data: {
                 username: username,
                 password: password,
@@ -51,7 +51,7 @@ function Login() {
     };
     return (
         <>
-        <Header/>
+            <Header />
             <div className="mt-120"></div>
             <form className="login">
                 <h1 className="login__title">Đăng nhập</h1>

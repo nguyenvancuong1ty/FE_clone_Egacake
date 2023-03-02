@@ -114,7 +114,7 @@ function Register() {
             confirm === password &&
             regex.test(email)
         ) {
-            fetch('/v1/api/users', {
+            fetch('http://18.143.149.62:3000/v1/api/users', {
                 method: 'post', // or 'PUT'
                 body: JSON.stringify(formData),
                 headers: {

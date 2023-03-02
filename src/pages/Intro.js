@@ -1,22 +1,18 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Header from '~/components/Header';
+import { useFetch } from '~/hooks/useFetch';
 
 function Intro() {
     const [intro, setIntro] = useState({
         data: '',
     });
+    const res = useFetch('get', 'v1/api/intro');
     useEffect(() => {
-        axios({
-            method: 'get',
-            url: '/v1/api/intro',
-        }).then((res) => {
-            setIntro(res.data.data[0]);
-        });
-    }, []);
+        setIntro(res[0]);
+    }, [res]);
     return (
         <>
-        <Header/>
+            <Header />
             <div className="mt-120"></div>
             <div className="container h-body">
                 <b>
@@ -27,7 +23,7 @@ function Intro() {
                 </p>
                 <div style={{ marginTop: 200, textAlign: 'right' }}>
                     <b>
-                        {intro.address} - {Date.parse(intro.founding)}
+                    {intro && `${intro.address} - ${Date.parse(intro.founding)}`}
                     </b>
                 </div>
             </div>

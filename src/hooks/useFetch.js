@@ -8,11 +8,15 @@ export const useFetch = (method, url, options) => {
         const fetchData = async () => {
             await axios({
                 method: method,
-                url: url,
+                url: `http://18.143.149.62:3000/${url}`,
                 data: options,
-            }).then((res) => {
-                setData(res.data.data);
-            });
+            })
+                .then((res) => {
+                    setData(res.data.data);
+                })
+                .catch((err) => {
+                    console.log('error');
+                });
         };
         fetchData();
     }, [url, method]);

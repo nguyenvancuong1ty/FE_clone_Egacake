@@ -1,15 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useFetch } from '~/hooks/useFetch';
 
 function Nav() {
     const [data, setData] = useState([]);
+    const res = useFetch('get', 'v1/api/cakes');
     useEffect(() => {
-        axios({
-            method: 'get',
-            url: '/v1/api/cakes',
-        }).then((res) => setData(res.data.data));
-    }, []);
+        setData(res);
+    }, [res]);
     return (
         <div className="body__left-content">
             <div className="body__left--head">

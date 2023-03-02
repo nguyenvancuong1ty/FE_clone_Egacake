@@ -3,7 +3,7 @@ import Header from '~/components/Header';
 import { useFetch } from '~/hooks/useFetch';
 
 function CakeRecipe() {
-    const recipe = useFetch('get', '/v1/api/recipe');
+    const recipe = useFetch('get', 'v1/api/recipe');
     return (
         <>
         <Header/>
