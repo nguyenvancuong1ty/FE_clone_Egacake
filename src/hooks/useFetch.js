@@ -19,7 +19,7 @@ export const useFetch = (method, url, options) => {
                 });
         };
         fetchData();
-    }, [url, method]);
+    }, [url, method,options]);
 
     // nếu quá trình lấy dữ liệu chưa hoàn tất, trả về một giá trị rỗng hoặc một thông báo loading
     // nếu quá trình lấy dữ liệu đã hoàn tất, trả về dữ liệu

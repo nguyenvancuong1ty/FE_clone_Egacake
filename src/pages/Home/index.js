@@ -77,7 +77,7 @@ function Home() {
                                     className="flashsale__header--img"
                                 />
                                 <p className="flashsale__header--text">
-                                    <marquee behavior="" direction="">
+                                    <span behavior="" direction="">
                                         <a href="/" className="flashsale__header--link">
                                             Giảm 30K cho đờ hàng từ 399K
                                         </a>
@@ -87,7 +87,7 @@ function Home() {
                                         <a href="/" className="flashsale__header--link">
                                             Giảm 10% cho đờ hàng từ 800K
                                         </a>
-                                    </marquee>
+                                    </span>
                                 </p>
                             </div>
                             <div className="flashsale__header--right">

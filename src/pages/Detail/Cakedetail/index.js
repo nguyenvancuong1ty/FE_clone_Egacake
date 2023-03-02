@@ -4,26 +4,26 @@ import Header from '~/components/Header';
 import { useFetch } from '~/hooks/useFetch';
 import './index.scss';
 function CakeDetail() {
-    const cakedetail = useFetch('get', '/v1/api/cakedetail');
+    const cakedetail = useFetch('get', 'v1/api/cakedetail');
     const { id } = useParams();
     const [data, setData] = useState([]);
     useEffect(() => {
         if (cakedetail && cakedetail.length > 0) {
             let newData = cakedetail.find((item) => {
-                return item.id == id;
+                return item.id === Number(id);
             });
             setData(newData);
         }
-    }, [cakedetail]);
+    }, [cakedetail,id]);
 
     return (
         <>
-        <Header />
+            <Header />
             <div className="mt-120"></div>
             <section className="product-details">
                 <div className="container">
                     <div className="product-image">
-                        <img src={data.images} alt="Product Image" />
+                        <img src={data.images} alt="" />
                     </div>
                     <div className="product-info">
                         <h1 className="product-title">{data.nameCake}</h1>
