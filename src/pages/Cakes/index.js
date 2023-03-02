@@ -12,6 +12,9 @@ function Cakes() {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
+        setLoading(true);
+    }, [categorycake]);
+    useEffect(() => {
         setTimeout(() => {
             if (Array.isArray(res)) {
                 if (categorycake) {
@@ -28,6 +31,7 @@ function Cakes() {
             }
         }, 300);
     }, [categorycake, res]);
+
     return (
         <>
             <Header />
@@ -45,7 +49,7 @@ function Cakes() {
                             <div className="grids">
                                 {data &&
                                     data.map((item, index) => {
-                                        return <FlashSaleItem item={item} key={index} col={4} />;
+                                        return loading === false && <FlashSaleItem item={item} key={index} col={4} />;
                                     })}
                             </div>
                         </div>

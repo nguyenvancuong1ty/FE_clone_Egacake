@@ -14,7 +14,7 @@ function CakeDetail() {
             });
             setData(newData);
         }
-    }, [cakedetail,id]);
+    }, [cakedetail, id]);
 
     return (
         <>
@@ -26,7 +26,10 @@ function CakeDetail() {
                         <img src={data.images} alt="" />
                     </div>
                     <div className="product-info">
-                        <h1 className="product-title">{data.nameCake}</h1>
+                        <>
+                            <h1 className="product-title">{data.nameCake}</h1>
+                            <button>Thêm vào giỏ hàng</button>
+                        </>
                         <div className="product-stats">
                             <div className="product-price">
                                 <span className="product-label">Giá:</span>
