@@ -3,8 +3,47 @@
     background-color: #f8f8f8;
 
     .container {
-        background-color: white;
+        background-color: #ffffff;
         margin: 0 auto;
+
+        .btn_buy {
+            padding: 8px 16px;
+            top: 0;
+            border: none;
+            outline: none;
+            min-width: 120px;
+            background-color: var(--primary-color--);
+            color: white;
+            font-weight: 800;
+            font-size: 18px;
+            border-radius: 99px;
+            cursor: pointer;
+            animation: vibrate 2s linear infinite;
+        }
+        .cancel-animation {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: gray;
+            color: #ccc;
+            animation-play-state: paused;
+        }
+        @keyframes vibrate {
+            5% {
+                transform: rotate(2deg);
+            }
+            15% {
+                transform: rotate(-2deg);
+            }
+            25% {
+                transform: rotate(2deg);
+            }
+            35% {
+                transform: rotate(-2deg);
+            }
+            45% {
+                transform: rotate(0);
+            }
+        }
     }
 
     .product-image {
@@ -30,6 +69,7 @@
         font-size: 36px;
         margin-bottom: 20px;
         color: var(--primary-color--);
+        display: inline-block;
     }
 
     .product-stats {

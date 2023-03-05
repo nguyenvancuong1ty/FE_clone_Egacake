@@ -17,6 +17,10 @@ body {
     --primary-color--: #a50a06;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 html::-webkit-scrollbar {
     display: none;
 }

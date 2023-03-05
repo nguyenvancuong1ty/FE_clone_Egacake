@@ -9,7 +9,6 @@ function RecipeManager() {
     useEffect(() => {
         setTimeout(() => {
             setData(res);
-
             setLoading(false);
         }, 500);
     }, [res]);

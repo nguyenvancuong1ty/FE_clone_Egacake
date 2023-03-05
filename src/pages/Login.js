@@ -30,14 +30,11 @@ function Login() {
         setPassword(event.target.value);
     };
     const handleSubmit = () => {
-        axios({
-            method: 'post',
-            url: 'http://18.143.149.62:3000/v1/api/login',
-            data: {
+        axios.post('http://18.143.149.62:3000/v1/api/login',
+            {
                 username: username,
                 password: password,
-            },
-        }).then((res) => {
+            }).then((res) => {
             if (res.data.statusCode) {
                 localStorage.setItem('user_id', res.data.data[0].id);
                 localStorage.setItem('isLogin', true);
@@ -47,7 +44,7 @@ function Login() {
                 errorLogin();
                 inputRef.current.focus();
             }
-        });
+        }).then(e => console.log('error', e));
     };
     return (
         <>

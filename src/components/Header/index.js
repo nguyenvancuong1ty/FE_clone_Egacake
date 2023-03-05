@@ -7,6 +7,7 @@ function Header() {
     const navigate = useNavigate();
     const numberProduct = localStorage.getItem('number_product');
     const [isLogin, setLogin] = useState(localStorage.getItem('isLogin'));
+    const [isShowCart, setShowCart] = useState(false);
     const [isShow, setShow] = useState(false);
     const notify = () => toast.success('Logout Success !', { autoClose: 1500 });
     return (
@@ -109,7 +110,15 @@ function Header() {
                                     </NavLink>
                                 )}
                             </li>
-                            <li className="header__opstion--item product__show">
+                            <li
+                                className="header__opstion--item product__show"
+                                onClick={(e) => {
+                                    setShowCart(true);
+                                }}
+                                onMouseLeave={() => {
+                                    setShowCart(false);
+                                }}
+                            >
                                 <div to="/cart" className="header__opstion--link">
                                     <img
                                         src="https://raw.githubusercontent.com/nguyenvancuong1ty/imagas/main/cart-icon.webp"
@@ -121,7 +130,7 @@ function Header() {
                                         <span className="number">{numberProduct}</span>
                                     </div>
                                 </div>
-                                <Cart />
+                                {isShowCart && <Cart />}
                             </li>
                         </ul>
                     </div>

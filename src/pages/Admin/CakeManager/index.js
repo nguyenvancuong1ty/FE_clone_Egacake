@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Header from '~/components/Header';
 import Loading from '~/components/Loading';
@@ -14,6 +15,16 @@ function CakeManager() {
             setLoading(false);
         }, 500);
     }, [res]);
+    const handleDelete = (id) => {
+        axios
+            .delete('http://18.143.149.62:3000/v1/api/cakedetail', {
+                data: { id: id },
+            })
+            .then((res) => {
+                setData(data.filter((item) => item.id !== id));
+            })
+            .then((e) => console.log('error', e));
+    };
     return (
         <>
             <Header />
@@ -32,6 +43,7 @@ function CakeManager() {
                             <th scope="col">Sale</th>
                             <th scope="col">Detail</th>
                             <th scope="col">Time Sale</th>
+                            <th scope="col">Xóa</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,6 +64,15 @@ function CakeManager() {
                                         <td>{item.sale}%</td>
                                         <td>{item.detail.slice(0, 30)}...</td>
                                         <td>{item.timeSale}</td>
+                                        <td
+                                            id={item.id}
+                                            style={{ cursor: 'pointer' }}
+                                            onClick={() => {
+                                                handleDelete(item.id);
+                                            }}
+                                        >
+                                            X
+                                        </td>
                                     </tr>
                                 );
                             })}
