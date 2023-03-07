@@ -1,4 +1,6 @@
-function Voucher({ item }) {
+
+
+function Voucher({ item, click }) {
     return (
         <div className="code__item col-xl-3 col-lg-4 col-md-6 col-sm-12">
             <div className="code__item--content">
@@ -8,9 +10,9 @@ function Voucher({ item }) {
                 </p>
                 <div className="code__item--continue">
                     <button className="code__item--btn">sao chép</button>
-                    <a href="/" className="code__item--link">
+                    <b className="code__item--link" onClick={() => click(item.id)}>
                         Điều kiện
-                    </a>
+                    </b>
                 </div>
             </div>
         </div>

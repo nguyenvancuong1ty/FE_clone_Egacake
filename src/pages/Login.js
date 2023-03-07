@@ -5,6 +5,7 @@ import { useRef, useState } from 'react';
 import './Authentication.scss';
 import axios from 'axios';
 import Header from '~/components/Header';
+import md5 from 'md5';
 function Login() {
     const successLogin = () => {
         toast.success('Login Success', {
@@ -30,10 +31,10 @@ function Login() {
         setPassword(event.target.value);
     };
     const handleSubmit = () => {
-        axios.post('http://18.143.149.62:3000/v1/api/login',
+        axios.post('https://18.143.149.62:3000/v1/api/login',
             {
                 username: username,
-                password: password,
+                password: md5(password),
             }).then((res) => {
             if (res.data.statusCode) {
                 localStorage.setItem('user_id', res.data.data[0].id);

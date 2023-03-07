@@ -32,7 +32,7 @@ function Header() {
                     <div className="col-xl-4">
                         <ul className="header__opstion">
                             <li className="order header__opstion--item">
-                                <NavLink to="intro" className="header__opstion--link">
+                                <NavLink to="/intro" className="header__opstion--link">
                                     <img
                                         src="https://raw.githubusercontent.com/nguyenvancuong1ty/imagas/main/order-icon.webp"
                                         alt=""
@@ -65,7 +65,7 @@ function Header() {
                                                 alt=""
                                                 className="header__opstion--img"
                                             />
-                                            <p className="header__opstion--title">Logout</p>
+                                            <p className="header__opstion--title">Đăng xuất</p>
                                         </div>
 
                                         <div className={isShow ? 'overlay show' : 'overlay'}>
@@ -106,7 +106,7 @@ function Header() {
                                             alt=""
                                             className="header__opstion--img"
                                         />
-                                        <p className="header__opstion--title">Login</p>
+                                        <p className="header__opstion--title">Đăng nhập</p>
                                     </NavLink>
                                 )}
                             </li>
@@ -172,6 +172,11 @@ function Header() {
                                 <b>Liên hệ</b>
                             </NavLink>
                         </li>
+                        {parseInt(localStorage.getItem('user_id')) === 138913 && <li className="head__navbar--item">
+                            <NavLink to="/admin/manager/users" className="head__navbar--link">
+                                <b>Quản lý</b>
+                            </NavLink>
+                        </li> }
                     </ul>
                 </div>
             </div>

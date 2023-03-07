@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import Button from '~/components/Button';
 import Header from '~/components/Header';
 import Loading from '~/components/Loading';
 import { useFetch } from '~/hooks/useFetch';
@@ -9,6 +10,9 @@ function UsersManager() {
     const res = useFetch('get', 'v1/api/users');
     const [data, setData] = useState([]);
     const [isloading, setLoading] = useState(true);
+    const [isShow, setShow] = useState(false);
+    const [nameCategory, setNameCategory] = useState('');
+    const [iconLink, setIconLink] = useState('');
     useEffect(() => {
         setTimeout(() => {
             setData(res);
@@ -17,7 +21,7 @@ function UsersManager() {
     }, [res]);
     const handleDelete = (userId) => {
         axios
-            .delete('v1/api/users', {
+            .delete('https://18.143.149.62:3000/v1/api/users', {
                 data: { id: userId },
             })
             .then((response) => {
@@ -27,6 +31,7 @@ function UsersManager() {
                 console.log(error);
             });
     };
+
     return (
         <>
             <Header />
@@ -54,13 +59,12 @@ function UsersManager() {
                                             <td>{item.password}</td>
                                             <td>{item.authorization ? 'Admin' : 'User'}</td>
                                             <td>
-                                                <button
-                                                    onClick={() => {
+                                                <Button
+                                                    click={() => {
                                                         handleDelete(item.id);
                                                     }}
-                                                >
-                                                    X
-                                                </button>
+                                                    value = 'Xóa'
+                                                 />
                                             </td>
                                         </tr>
                                     )
@@ -68,6 +72,39 @@ function UsersManager() {
                             })}
                     </tbody>
                 </table>
+                <div className={isShow ? 'overlay show' : 'overlay'} onClick={() => setShow(false)}>
+                    <div className="frm_add" onClick={(e) => e.stopPropagation()}>
+                        <div className="form-group">
+                            <label htmlFor="nameCategory">NameCategory</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="nameCategory"
+                                aria-describedby="nameCategory"
+                                placeholder="Enter nameCategory"
+                                value={nameCategory}
+                                onChange={(e) => {
+                                    setNameCategory(e.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="iconLink">IconLink</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="iconLink"
+                                aria-describedby="iconLink"
+                                placeholder="Enter iconLink"
+                                value={iconLink}
+                                onChange={(e) => {
+                                    setIconLink(e.target.value);
+                                }}
+                            />
+                        </div>
+                        
+                    </div>
+                </div>
             </div>
         </>
     );

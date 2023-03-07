@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 function ProductItem({ item, index }) {
     return (
-        <NavLink className="product__content--item col-xl-3" key={index}>
+        <NavLink to= {`/detail/${item.id}`} className="product__content--item col-xl-3" key={index}>
             <img src="./img/frame_1.webp" alt="" className="product__content--img" />
             <div className="product__content--text">
                 <p className="product__content--name">{item.nameCake}</p>

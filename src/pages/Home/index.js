@@ -32,6 +32,9 @@ function Home() {
     const [isShowAll, setIsShowAll] = useState(false);
     const [typeCake, setTypeCake] = useState(7);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [selectedVoucherId, setSelectedVoucherId] = useState(null);
+    const [isShow, setShow] = useState(false);
+    const selectedVoucher = voucher.find(v => v.id === selectedVoucherId);
     return (
         <>
             <Header />
@@ -58,7 +61,7 @@ function Home() {
                             <div className="code">
                                 {Array.isArray(voucher) &&
                                     voucher.map((item, index) => {
-                                        return index < 4 && <Voucher item={item} key={index} />;
+                                            return index < 4 && <Voucher item={item} key={index} click = {(id) => { setSelectedVoucherId(id); setShow(true)}} />;
                                     })}
                             </div>
                             <NavLink to={'/sale'} className="product__content--submit">
@@ -76,19 +79,19 @@ function Home() {
                                     alt=""
                                     className="flashsale__header--img"
                                 />
-                                <p className="flashsale__header--text">
-                                    <span behavior="" direction="">
-                                        <a href="/" className="flashsale__header--link">
+                                <div className="flashsale__header--text">
+                                    <div className='flashsale__text-run'>
+                                        <p className="flashsale__header--link">
                                             Giảm 30K cho đờ hàng từ 399K
-                                        </a>
-                                        <a href="/" className="flashsale__header--link">
+                                        </p>
+                                        <p className="flashsale__header--link">
                                             Giảm 8% cho đờ hàng từ 499K
-                                        </a>
-                                        <a href="/" className="flashsale__header--link">
+                                        </p>
+                                        <p className="flashsale__header--link">
                                             Giảm 10% cho đờ hàng từ 800K
-                                        </a>
-                                    </span>
-                                </p>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                             <div className="flashsale__header--right">
                                 <div className="flashsale__countdown">
@@ -300,6 +303,20 @@ function Home() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div className={isShow ? 'overlay show' : 'overlay'} onClick={() => setShow(false)}>
+                    <div className="frm_add" onClick={(e) => e.stopPropagation()}>
+                    <div className="card">
+                        {selectedVoucher && <>
+                            <div className="card-header">{selectedVoucher.code}</div>
+                            <div className="card-body">
+                            <h5 className="card-title">{selectedVoucher.detail}</h5>
+                            <p className="card-text">{selectedVoucher.requirement}</p>            
+                            </div>
+                            </>
+                        }
+                        </div> 
                     </div>
                 </div>
             </div>

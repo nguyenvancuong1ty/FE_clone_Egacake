@@ -53,7 +53,7 @@ function CakeDetail() {
         else if (!isBought){
             setIsBought(true);
             axios
-                .post('http://18.143.149.62:3000/v1/api/cake_by_cart', {
+                .post('https://18.143.149.62:3000/v1/api/cake_by_cart', {
                     userId: localStorage.getItem('user_id'),
                     cakeId: data.id,
                 })

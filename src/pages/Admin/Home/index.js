@@ -4,6 +4,7 @@ import NewsManager from '../NewsManager';
 import RecipeManager from '../RecipeManager';
 import TypeCakeManager from '../TypeCakeManager';
 import UsersManager from '../UsersManager';
+import VoucherManager from '../VoucherManager';
 import '../Admin.scss';
 function AdmHome() {
     return (
@@ -26,6 +27,9 @@ function AdmHome() {
                     <NavLink to={'manager/cake-recipe'} className="list-group-item">
                         Cake Recipe Manager
                     </NavLink>
+                    <NavLink to={'manager/voucher'} className="list-group-item">
+                        Voucher Manager
+                    </NavLink>
                 </ul>
                 <Routes>
                     <Route path="manager/users" element={<UsersManager />}></Route>
@@ -33,6 +37,7 @@ function AdmHome() {
                     <Route path="manager/news" element={<NewsManager />}></Route>
                     <Route path="manager/cake-recipe" element={<RecipeManager />}></Route>
                     <Route path="manager/cake-detail" element={<CakeManager />}></Route>
+                    <Route path="manager/voucher" element={<VoucherManager />}></Route>
                 </Routes>
             </div>
         </>

@@ -1,33 +1,35 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import Button from '~/components/Button';
 import Header from '~/components/Header';
+import axios from 'axios';
+import Button from '~/components/Button';
 import Loading from '~/components/Loading';
 import { useFetch } from '~/hooks/useFetch';
-function TypeCakeManager() {
-    const res = useFetch('get', 'v1/api/cakes');
+function VoucherManager() {
+    const res = useFetch('get', 'v1/api/voucher');
     const [data, setData] = useState([]);
-    const [isLoading, setLoading] = useState(true);
-    const [isShow, setShow] = useState(false);
-    const [nameCategory, setNameCategory] = useState('');
-    const [iconLink, setIconLink] = useState('');
-    const [typeSubmit, setSubmit] = useState('');
+    const [isloading, setLoading] = useState(true);
     const [id, setId] = useState(0);
+    const [typeSubmit, setSubmit] = useState('');
+    const [code, setCode] = useState('');
+    const [isShow, setShow] = useState(false);
+    const [requirement, setRequirement] = useState('');
+    const [detail, setDetail] = useState('');
 
     useEffect(() => {
         setTimeout(() => {
             setData(res);
+
             setLoading(false);
         }, 500);
     }, [res]);
-
+    
     const handleDelete = (id) => {
         axios
-            .delete('https://18.143.149.62:3000/v1/api/cakes', {
+            .delete('https://18.143.149.62:3000/v1/api/voucher', {
                 data: { id: id },
             })
             .then((response) => {
-                setData(data.filter((cake) => cake.categoryCake !== id));
+                setData(data.filter((voucher) => voucher.id !== id));
             })
             .catch((error) => {
                 console.log(error);
@@ -40,7 +42,10 @@ function TypeCakeManager() {
     const handleSubmit = () => {
         if (typeSubmit === 'add') {
             axios
-                .post('https://18.143.149.62:3000/v1/api/cakes', { nameCategory: nameCategory, iconLink: iconLink })
+                .post('https://18.143.149.62:3000/v1/api/voucher', {
+                    code: code,
+                    requirement: requirement,
+                    detail: detail})
                 .then((response) => {
                     setData(response.data.data);
                     setShow(false);
@@ -50,10 +55,11 @@ function TypeCakeManager() {
                 });
         } else if (typeSubmit === 'update') {
             axios
-                .put('https://18.143.149.62:3000/v1/api/cakes', {
-                    categoryCake: id,
-                    nameCategory: nameCategory,
-                    iconLink: iconLink,
+                .put('https://18.143.149.62:3000/v1/api/voucher', {
+                    id: id,
+                    code: code,
+                    requirement: requirement,
+                    detail: detail
                 })
                 .then((response) => {
                     setData(response.data.data);
@@ -66,62 +72,64 @@ function TypeCakeManager() {
     };
     return (
         <>
-        <Header/>
+            <Header />
             <div className="mt-120"></div>
             <div className="container">
                 <table className="table table-success">
                     <thead>
                         <tr>
-                            <th scope="col">categoryCake </th>
-                            <th scope="col">nameCategory</th>
-                            <th scope="col">iconLink</th>
+                            <th scope="col">Id</th>
+                            <th scope="col">Code</th>
+                            <th scope="col">Detail</th>
+                            <th scope="col">Requirement</th>
+                            <th scope="col">Date Create</th>
                             <th scope="col">Options</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {isLoading && <Loading colspan={4}/>}
+                        {isloading && <Loading colspan={6}/>}
                         {data &&
                             data.map((item, index) => {
                                 return (
-                                    item.authorization !== 1 && (
-                                        <tr key={index}>
-                                            <th scope="row">{item.categoryCake}</th>
-                                            <td>{item.nameCategory}</td>
-                                            <td>
-                                                <img alt="" src={item.iconLink} />
-                                            </td>
-                                            <td>
-                                            <Button
+                                    <tr key={index}>
+                                        <th scope="row">{item.id}</th>
+                                        <td>{item.code}</td>
+                                        <td>{item.detail.length > 30 ? item.detail.slice(0,30): item.detail}...</td>
+                                        <td>{item.requirement.length > 30?item.requirement.slice(0,30): item.requirement}...</td>
+                                        <td>{item.dateCreate}</td>
+                                        <td> <Button
                                                     click={() => {
-                                                        handleDelete(item.categoryCake);
+                                                        handleDelete(item.id);
                                                     }}
                                                     value="Xóa"
                                                 ></Button>
                                                 <Button
+                                                    class = "mt-1"
                                                     value="Sửa"
                                                     click={() => {
-                                                        setId(item.categoryCake);
-                                                        setNameCategory(item.nameCategory);
-                                                        setIconLink(item.iconLink);
-                                                        setSubmit('update');
+                                                        setCode(item.code);
+                                                        setDetail(item.detail);
+                                                        setRequirement(item.requirement);
+                                                        setId(item.id);
                                                         setShow(true);
+                                                        setSubmit('update')
                                                     }}
                                                 />
                                             </td>
-                                        </tr>
-                                    )
+                                    </tr>
                                 );
                             })}
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colSpan={4}>
+                            <td colSpan={6}>
                                 <Button
                                     value="Thêm"
                                     className="add__type-cake"
                                     click={() => {
-                                        setNameCategory('');
-                                        setIconLink('');
+                                        setCode('');
+                                        setDetail('');
+                                        setRequirement('');
                                         setSubmit('add');
                                         handleAdd();
                                     }}
@@ -133,30 +141,44 @@ function TypeCakeManager() {
                 <div className={isShow ? 'overlay show' : 'overlay'} onClick={() => setShow(false)}>
                     <div className="frm_add" onClick={(e) => e.stopPropagation()}>
                         <div className="form-group">
-                            <label htmlFor="nameCategory">NameCategory</label>
+                            <label htmlFor="code">Code</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="nameCategory"
-                                aria-describedby="nameCategory"
-                                placeholder="Enter nameCategory"
-                                value={nameCategory}
+                                id="code"
+                                aria-describedby="code"
+                                placeholder="Enter code"
+                                value={code}
                                 onChange={(e) => {
-                                    setNameCategory(e.target.value);
+                                    setCode(e.target.value);
                                 }}
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="iconLink">IconLink</label>
+                            <label htmlFor="detail">Detail</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                id="iconLink"
-                                aria-describedby="iconLink"
-                                placeholder="Enter iconLink"
-                                value={iconLink}
+                                id="detail"
+                                aria-describedby="detail"
+                                placeholder="Enter detail"
+                                value={detail}
                                 onChange={(e) => {
-                                    setIconLink(e.target.value);
+                                    setDetail(e.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="requirement">Requirement</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="requirement"
+                                aria-describedby="requirement"
+                                placeholder="Enter requirement"
+                                value={requirement}
+                                onChange={(e) => {
+                                    setRequirement(e.target.value);
                                 }}
                             />
                         </div>
@@ -174,4 +196,4 @@ function TypeCakeManager() {
     );
 }
 
-export default TypeCakeManager;
+export default VoucherManager;

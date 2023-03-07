@@ -3,7 +3,9 @@ import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '~/components/Header';
+import md5 from 'md5';
 function Register() {
+
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
@@ -40,7 +42,7 @@ function Register() {
         setConfirmSmall('');
     };
     useEffect(() => {
-        setFormData({ username: username, password: password, email: email });
+        setFormData({ username: username, password: md5(password), email: email });
     }, [email, username, password]);
     function cases(inputValue, min, max) {
         switch (inputValue) {
@@ -114,16 +116,18 @@ function Register() {
             confirm === password &&
             regex.test(email)
         ) {
-            fetch('http://18.143.149.62:3000/v1/api/users', {
-                method: 'post', // or 'PUT'
+            fetch('https://18.143.149.62:3000/v1/api/users', {
+                method: 'post',
                 body: JSON.stringify(formData),
                 headers: {
                     'Content-Type': 'application/json',
                 },
             })
                 .then(() => {
-                    alert('Create success! click Ok to Login');
-                    navigate('/login');
+                    alert('Create account success!');
+                    setTimeout(() => {
+                        navigate('/login');
+                    }, 1200);
                 })
                 .catch((error) => {
                     console.error('Error:', error);

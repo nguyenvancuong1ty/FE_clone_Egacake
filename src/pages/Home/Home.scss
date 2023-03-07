@@ -178,6 +178,7 @@
 .flashsale__header {
     display: flex;
     padding: 16px 8px 8px 8px;
+
 }
 
 .flashsale__countdown--title {
@@ -203,6 +204,25 @@
 
 .flashsale__header--left {
     width: 50%;
+   
+    .flashsale__header--text {
+        width: 100%;
+        overflow-x: scroll;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .flashsale__text-run {
+            width: max-content;
+            display: flex;
+            animation: run 6s linear infinite;
+    }
+}
+@keyframes run {
+    to {
+        transform: translateX(-100%);
+    } 
+}
 }
 
 .flashsale__header--link {
@@ -822,11 +842,17 @@
     border: 1px solid var(--primary-color--);
     border-radius: 3px;
     position: absolute;
-    width: 380px;
+    width: 420px;
     display: block;
     background: white;
     animation: show 0.5s linear;
     transform-origin: top;
+
+    .delete {
+        padding: 4px;
+        min-width: 50px;
+        margin-left: 88px;
+    }
 
     b {
         font-size: 16px;
@@ -860,7 +886,7 @@
             h1 {
                 text-align: left;
                 display: inline-block;
-                min-width: 170px;
+                min-width: 100px;
             }
 
             b {

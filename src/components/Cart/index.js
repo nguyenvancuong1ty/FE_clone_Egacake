@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useFetch } from '~/hooks/useFetch';
+import Button from '../Button';
 function Cart() {
     const userId = localStorage.getItem('user_id');
     const url = `v1/api/cake_by_cart/${userId}`;
@@ -15,7 +16,7 @@ function Cart() {
 
     const handleQuantityChange = (item, newQuantity) => {
         const cakeId = item.cakeId;
-        axios.put('http://18.143.149.62:3000/v1/api/cake_by_cart', { userId, cakeId, quantity: newQuantity }).then((res) => {
+        axios.put('https://18.143.149.62:3000/v1/api/cake_by_cart', { userId, cakeId, quantity: newQuantity }).then((res) => {
             const newData = data.map((cake) => {
                 if (cake.cakeId === cakeId) {
                     cake.total_quantity = newQuantity;
@@ -42,6 +43,11 @@ function Cart() {
         }
     };
 
+    const handleDelete = (id) => {
+        setShow(true);
+        setIdCakeDetele(id);
+    }
+
     let total = data.reduce((init, item) => {
         return init + (item.price - (item.price * item.sale) / 100) * item.total_quantity;
     }, 0);
@@ -67,6 +73,7 @@ function Cart() {
                                         <span onClick={() => handleIncrease(item)}>+</span>
                                     </div>
                                 </div>
+                                    <Button value = 'X' class = "delete" click = {() => handleDelete(item.cakeId)}></Button>
                             </div>
                         ))}
 
@@ -94,7 +101,7 @@ function Cart() {
                                             className="btn_modal"
                                             onClick={() => {
                                                 axios
-                                                    .delete('http://18.143.149.62:3000/v1/api/cake_by_cart', {
+                                                    .delete('https://18.143.149.62:3000/v1/api/cake_by_cart', {
                                                         data: { userId: userId, cakeId: idCakeDetele },
                                                     })
                                                     .then((res) => {
