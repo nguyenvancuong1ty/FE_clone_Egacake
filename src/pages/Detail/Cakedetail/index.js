@@ -68,6 +68,7 @@ function CakeDetail() {
                         position: toast.POSITION.TOP_RIGHT,
                         autoClose: 1000,
                     });
+                    localStorage.setItem("number_product",localStorage.getItem("number_product")*1+1)
                     setTimeout(() => {
                         navigate('/cakes');
                     }, 2000);

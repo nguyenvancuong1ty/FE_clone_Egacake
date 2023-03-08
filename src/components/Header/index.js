@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -6,10 +6,19 @@ import Cart from '../Cart';
 function Header() {
     const navigate = useNavigate();
     const numberProduct = localStorage.getItem('number_product');
+    const [count, setCount] = useState(numberProduct)
     const [isLogin, setLogin] = useState(localStorage.getItem('isLogin'));
     const [isShowCart, setShowCart] = useState(false);
     const [isShow, setShow] = useState(false);
     const notify = () => toast.success('Logout Success !', { autoClose: 1500 });
+
+    useEffect(() => {
+        setCount(numberProduct);
+    },[numberProduct])
+    const handleCountChange = (newCount) => {
+        setCount(newCount);
+      };
+
     return (
         <header>
             <div className="container">
@@ -127,10 +136,10 @@ function Header() {
                                     />
                                     <p className="header__opstion--title">Giỏ hàng</p>
                                     <div className="number__product">
-                                        <span className="number">{numberProduct}</span>
+                                        <span className="number">{count}</span>
                                     </div>
                                 </div>
-                                {isShowCart && <Cart />}
+                                {isShowCart && <Cart prevQuantity = {count} onCountChange={handleCountChange}/>}
                             </li>
                         </ul>
                     </div>

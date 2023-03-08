@@ -2,8 +2,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useFetch } from '~/hooks/useFetch';
 import Button from '../Button';
-function Cart() {
+function Cart(props) {   
     const userId = localStorage.getItem('user_id');
+    const [numberProduct, setNum] = useState(localStorage.getItem('number_product'));
     const url = `v1/api/cake_by_cart/${userId}`;
     const res = useFetch('get', url);
     const [data, setData] = useState([]);
@@ -29,7 +30,11 @@ function Cart() {
 
     const handleIncrease = (item) => {
         const newQuantity = Number(item.total_quantity) + 1;
+        props.onCountChange(numberProduct*1 + 1);
+        localStorage.setItem("number_product",numberProduct*1+1)
+        setNum(prev =>prev*1+1)
         handleQuantityChange(item, newQuantity);
+        console.log(props.prevQuantity);
     };
 
     const handleDecrease = (item) => {
@@ -40,12 +45,18 @@ function Cart() {
             setShow(true);
         } else {
             handleQuantityChange(item, newQuantity);
+            props.onCountChange(numberProduct - 1);
+            localStorage.setItem("number_product",numberProduct-1)
+            setNum(prev =>prev - 1)
         }
+
     };
 
-    const handleDelete = (id) => {
+    const handleDelete = (item) => {
         setShow(true);
-        setIdCakeDetele(id);
+        setIdCakeDetele(item.cakeId);
+        setNum(prev => prev*1+1 - item.total_quantity);
+        localStorage.setItem("number_product",localStorage.getItem("number_product") - item.total_quantity);
     }
 
     let total = data.reduce((init, item) => {
@@ -73,7 +84,7 @@ function Cart() {
                                         <span onClick={() => handleIncrease(item)}>+</span>
                                     </div>
                                 </div>
-                                    <Button value = 'X' class = "delete" click = {() => handleDelete(item.cakeId)}></Button>
+                                    <Button value = 'X' class = "delete" click = {() => handleDelete(item)}></Button>
                             </div>
                         ))}
 
@@ -108,7 +119,10 @@ function Cart() {
                                                         const newData = data.filter(
                                                             (cake) => cake.cakeId !== idCakeDetele,
                                                         );
-                                                        setData(newData);
+                                                        setData(newData);                     
+                                                        localStorage.setItem("number_product",numberProduct-1)
+                                                        setNum(prev =>prev - 1);
+                                                        props.onCountChange(numberProduct - 1);
                                                     });
                                                 setShow(false);
                                             }}
