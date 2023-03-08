@@ -41,7 +41,7 @@ function CakeManager() {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete('https://18.143.149.62:3000/v1/api/cakeDetail', {
+            await axios.delete('https://cakebyme.shop:3000/v1/api/cakeDetail', {
             data: { id: id },
           });
           setData(data.filter((item) => item.id !== id));
@@ -57,7 +57,7 @@ function CakeManager() {
     const handleSubmit = () => {
         if (typeSubmit === 'add') {
             axios
-                .post('https://18.143.149.62:3000/v1/api/cakeDetail', { categoryCake: categoryCake, images:images, nameCake: nameCake, price: price, sold: sold, inventory : inventory, sale: sale, detail: detail })
+                .post('https://cakebyme.shop:3000/v1/api/cakeDetail', { categoryCake: categoryCake, images:images, nameCake: nameCake, price: price, sold: sold, inventory : inventory, sale: sale, detail: detail })
                 .then((response) => {
                     setData(response.data.data);
                     setShow(false);
@@ -67,7 +67,7 @@ function CakeManager() {
                 });
         } else if (typeSubmit === 'update') {
             axios
-                .put('https://18.143.149.62:3000/v1/api/cakeDetail', {
+                .put('https://cakebyme.shop:3000/v1/api/cakeDetail', {
                     id: id,
                     categoryCake: categoryCake, images:images,
                     nameCake: nameCake,price: price, sold: sold, inventory : inventory, sale: sale, detail: detail

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Button from '~/components/Button';
 import Header from '~/components/Header';
 import Loading from '~/components/Loading';
+import Modal from '~/components/Modal';
 import { useFetch } from '~/hooks/useFetch';
 import { useHeaderData } from '~/hooks/useHeaderData';
 function UsersManager() {
@@ -11,8 +12,7 @@ function UsersManager() {
     const [data, setData] = useState([]);
     const [isloading, setLoading] = useState(true);
     const [isShow, setShow] = useState(false);
-    const [nameCategory, setNameCategory] = useState('');
-    const [iconLink, setIconLink] = useState('');
+    const [idDelete, setIdDelete] = useState(0);
     useEffect(() => {
         setTimeout(() => {
             setData(res);
@@ -21,7 +21,7 @@ function UsersManager() {
     }, [res]);
     const handleDelete = (userId) => {
         axios
-            .delete('https://18.143.149.62:3000/v1/api/users', {
+            .delete('https://cakebyme.shop:3000/v1/api/users', {
                 data: { id: userId },
             })
             .then((response) => {
@@ -30,6 +30,7 @@ function UsersManager() {
             .catch((error) => {
                 console.log(error);
             });
+        setShow(false);
     };
 
     return (
@@ -61,7 +62,8 @@ function UsersManager() {
                                             <td>
                                                 <Button
                                                     click={() => {
-                                                        handleDelete(item.id);
+                                                        setShow(true)
+                                                        setIdDelete(item.id);
                                                     }}
                                                     value = 'Xóa'
                                                  />
@@ -72,39 +74,7 @@ function UsersManager() {
                             })}
                     </tbody>
                 </table>
-                <div className={isShow ? 'overlay show' : 'overlay'} onClick={() => setShow(false)}>
-                    <div className="frm_add" onClick={(e) => e.stopPropagation()}>
-                        <div className="form-group">
-                            <label htmlFor="nameCategory">NameCategory</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="nameCategory"
-                                aria-describedby="nameCategory"
-                                placeholder="Enter nameCategory"
-                                value={nameCategory}
-                                onChange={(e) => {
-                                    setNameCategory(e.target.value);
-                                }}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="iconLink">IconLink</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="iconLink"
-                                aria-describedby="iconLink"
-                                placeholder="Enter iconLink"
-                                value={iconLink}
-                                onChange={(e) => {
-                                    setIconLink(e.target.value);
-                                }}
-                            />
-                        </div>
-                        
-                    </div>
-                </div>
+                { isShow && <Modal isShow = {isShow} type = "User" clickShow = {() => {setShow(false)}} clickOk = {() => handleDelete(idDelete)} /> }          
             </div>
         </>
     );

@@ -830,6 +830,35 @@
     animation: ani 0.4s linear forwards;
 }
 
+.modals {
+    background-color: var(--primary-color--);
+    width: 400px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    b {
+        text-align: center;
+        color: white;
+    }
+
+    .btn_modal {
+        width: 80px;
+        padding: 8px 16px;
+        margin: 24px 16px;
+        border: none;
+        border-radius: 99px;
+        outline: none;
+        cursor: pointer;
+        background: white;
+        color: black;
+    }
+}
+
+
+
+
 .wrap_cart {
     padding: 12px 8px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -856,25 +885,6 @@
 
     b {
         font-size: 16px;
-    }
-
-    .modals {
-        background-color: var(--primary-color--);
-        width: 400px;
-        height: 300px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .btn_modal {
-        width: 80px;
-        padding: 8px 16px;
-        margin: 24px 16px;
-        border: none;
-        border-radius: 99px;
-        outline: none;
-        cursor: pointer;
     }
 
     .content {

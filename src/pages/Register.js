@@ -56,7 +56,7 @@ function Register() {
                         setNameSmall('');
                     }
                 } else {
-                    setNameSmall('Username is valid ');
+                    setNameSmall('Username is required ');
                 }
                 break;
             }
@@ -68,7 +68,7 @@ function Register() {
                         setEmailSmall('email not format');
                     }
                 } else {
-                    setEmailSmall('Email is valid');
+                    setEmailSmall('Email is required');
                 }
                 break;
             }
@@ -82,7 +82,7 @@ function Register() {
                         setPasswordSmall('');
                     }
                 } else {
-                    setPasswordSmall('Password is valid');
+                    setPasswordSmall('Password is required');
                 }
                 break;
             }
@@ -94,7 +94,7 @@ function Register() {
                         setConfirmSmall('Confirm not match password');
                     }
                 } else {
-                    setConfirmSmall('Confirm is valid');
+                    setConfirmSmall('Confirm is required');
                 }
                 break;
             }
@@ -104,19 +104,19 @@ function Register() {
     }
     const handleSubmit = (e) => {
         e.preventDefault();
-        cases('username', 4, 8);
+        cases('username', 4, 12);
         cases('password', 5, 12);
         cases('email');
         cases('confirm');
         if (
             username.length >= 4 &&
-            username.length <= 8 &&
+            username.length <= 12 &&
             password.length >= 5 &&
             password.length <= 12 &&
             confirm === password &&
             regex.test(email)
         ) {
-            fetch('https://18.143.149.62:3000/v1/api/users', {
+            fetch('https://cakebyme.shop:3000/v1/api/users', {
                 method: 'post',
                 body: JSON.stringify(formData),
                 headers: {

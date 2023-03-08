@@ -16,7 +16,7 @@ function Cart() {
 
     const handleQuantityChange = (item, newQuantity) => {
         const cakeId = item.cakeId;
-        axios.put('https://18.143.149.62:3000/v1/api/cake_by_cart', { userId, cakeId, quantity: newQuantity }).then((res) => {
+        axios.put('https://cakebyme.shop:3000/v1/api/cake_by_cart', { userId, cakeId, quantity: newQuantity }).then((res) => {
             const newData = data.map((cake) => {
                 if (cake.cakeId === cakeId) {
                     cake.total_quantity = newQuantity;
@@ -101,7 +101,7 @@ function Cart() {
                                             className="btn_modal"
                                             onClick={() => {
                                                 axios
-                                                    .delete('https://18.143.149.62:3000/v1/api/cake_by_cart', {
+                                                    .delete('https://cakebyme.shop:3000/v1/api/cake_by_cart', {
                                                         data: { userId: userId, cakeId: idCakeDetele },
                                                     })
                                                     .then((res) => {

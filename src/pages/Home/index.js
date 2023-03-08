@@ -276,10 +276,10 @@ function Home() {
                                                 );
                                             })}
 
-                                        <button className="blog__content--submit">
+                                        <NavLink to={"/news"} className="blog__content--submit">
                                             Xem tất cả
                                             <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                        </button>
+                                        </NavLink>
                                     </div>
                                 </div>
                             </div>
@@ -296,10 +296,10 @@ function Home() {
                                             return index <= 1 && <BlogItem item={item} key={index} textLimit={50} />;
                                         })}
 
-                                    <a href="/" className="blog__content--submit">
+                                    <NavLink to="/recipe" className="blog__content--submit">
                                         Xem tất cả
                                         <i className="fa-sharp fa-solid fa-chevron-right"></i>
-                                    </a>
+                                    </NavLink>
                                 </div>
                             </div>
                         </div>

@@ -25,7 +25,7 @@ function VoucherManager() {
     
     const handleDelete = (id) => {
         axios
-            .delete('https://18.143.149.62:3000/v1/api/voucher', {
+            .delete('https://cakebyme.shop:3000/v1/api/voucher', {
                 data: { id: id },
             })
             .then((response) => {
@@ -42,7 +42,7 @@ function VoucherManager() {
     const handleSubmit = () => {
         if (typeSubmit === 'add') {
             axios
-                .post('https://18.143.149.62:3000/v1/api/voucher', {
+                .post('https://cakebyme.shop:3000/v1/api/voucher', {
                     code: code,
                     requirement: requirement,
                     detail: detail})
@@ -55,7 +55,7 @@ function VoucherManager() {
                 });
         } else if (typeSubmit === 'update') {
             axios
-                .put('https://18.143.149.62:3000/v1/api/voucher', {
+                .put('https://cakebyme.shop:3000/v1/api/voucher', {
                     id: id,
                     code: code,
                     requirement: requirement,

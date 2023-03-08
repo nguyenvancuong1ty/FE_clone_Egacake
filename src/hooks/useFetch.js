@@ -8,7 +8,7 @@ export const useFetch = (method, url, options) => {
         const fetchData = async () => {
             await axios({
                 method: method,
-                url: `https://18.143.149.62:3000/${url}`,
+                url: `https://cakebyme.shop:3000/${url}`,
                 data: options,
             })
                 .then((res) => {

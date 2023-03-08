@@ -25,7 +25,7 @@ function RecipeManager() {
     
     const handleDelete = (id) => {
         axios
-            .delete('https://18.143.149.62:3000/v1/api/news', {
+            .delete('https://cakebyme.shop:3000/v1/api/news', {
                 data: { id: id },
             })
             .then((response) => {
@@ -42,7 +42,7 @@ function RecipeManager() {
     const handleSubmit = () => {
         if (typeSubmit === 'add') {
             axios
-                .post('https://18.143.149.62:3000/v1/api/news', {
+                .post('https://cakebyme.shop:3000/v1/api/news', {
                 id: id,
                 title: title,
                 images: images,
@@ -56,7 +56,7 @@ function RecipeManager() {
                 });
         } else if (typeSubmit === 'update') {
             axios
-                .put('https://18.143.149.62:3000/v1/api/news', {
+                .put('https://cakebyme.shop:3000/v1/api/news', {
                     id: id,
                     title: title,
                     images: images,

@@ -31,7 +31,7 @@ function Login() {
         setPassword(event.target.value);
     };
     const handleSubmit = () => {
-        axios.post('https://18.143.149.62:3000/v1/api/login',
+        axios.post('https://cakebyme.shop:3000/v1/api/login',
             {
                 username: username,
                 password: md5(password),
@@ -62,6 +62,7 @@ function Login() {
                         value={username}
                         name="username"
                         className="login__input--input"
+                        autoComplete='username'
                         onChange={handleUsernameChange}
                     />
                 </div>
@@ -73,6 +74,7 @@ function Login() {
                         ref={inputRef}
                         type="password"
                         name="password"
+                        autoComplete='current-password'
                         className="login__input--input"
                         value={password}
                         onChange={handlePasswordChange}

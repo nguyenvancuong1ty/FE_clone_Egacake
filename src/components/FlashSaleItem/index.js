@@ -1,5 +1,4 @@
 import { NavLink } from 'react-router-dom';
-
 function FlashSaleItem({ item, col }) {
     return (
         <NavLink to={`/detail/${item.id}`} className={`rows col-xl-${col}`}>
@@ -18,7 +17,7 @@ function FlashSaleItem({ item, col }) {
                     )}
                 </p>
                 <i className="sale--search fa-solid fa-magnifying-glass"></i>
-                <div className="flashsale__content--icon">
+                <div className="flashsale__content--icon" onClick={() => {}}>
                     <i className="fa-sharp fa-solid fa-bag-shopping"></i>
                 </div>
                 <div className="flashsale__content--bought">

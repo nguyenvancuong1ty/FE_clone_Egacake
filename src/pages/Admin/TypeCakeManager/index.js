@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Button from '~/components/Button';
 import Header from '~/components/Header';
 import Loading from '~/components/Loading';
@@ -14,6 +16,24 @@ function TypeCakeManager() {
     const [typeSubmit, setSubmit] = useState('');
     const [id, setId] = useState(0);
 
+    const errorDelete = () => {
+        toast.error('Không thể xóa loại bánh này', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 2000,
+        });
+    };
+    const addSuccess = () => {
+        toast.success('Thêm thành công', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 2000,
+        });
+    };
+    const updateSuccess = () => {
+        toast.success('Update thành công', {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 2000,
+        });
+    };
     useEffect(() => {
         setTimeout(() => {
             setData(res);
@@ -23,14 +43,14 @@ function TypeCakeManager() {
 
     const handleDelete = (id) => {
         axios
-            .delete('https://18.143.149.62:3000/v1/api/cakes', {
+            .delete('https://cakebyme.shop:3000/v1/api/cakes', {
                 data: { id: id },
             })
             .then((response) => {
                 setData(data.filter((cake) => cake.categoryCake !== id));
             })
             .catch((error) => {
-                console.log(error);
+                errorDelete();
             });
     };
 
@@ -40,8 +60,9 @@ function TypeCakeManager() {
     const handleSubmit = () => {
         if (typeSubmit === 'add') {
             axios
-                .post('https://18.143.149.62:3000/v1/api/cakes', { nameCategory: nameCategory, iconLink: iconLink })
+                .post('https://cakebyme.shop:3000/v1/api/cakes', { nameCategory: nameCategory, iconLink: iconLink })
                 .then((response) => {
+                    addSuccess();
                     setData(response.data.data);
                     setShow(false);
                 })
@@ -50,12 +71,13 @@ function TypeCakeManager() {
                 });
         } else if (typeSubmit === 'update') {
             axios
-                .put('https://18.143.149.62:3000/v1/api/cakes', {
+                .put('https://cakebyme.shop:3000/v1/api/cakes', {
                     categoryCake: id,
                     nameCategory: nameCategory,
                     iconLink: iconLink,
                 })
                 .then((response) => {
+                    updateSuccess();
                     setData(response.data.data);
                     setShow(false);
                 })
@@ -169,6 +191,7 @@ function TypeCakeManager() {
                         />
                     </div>
                 </div>
+                <ToastContainer />
             </div>
         </>
     );

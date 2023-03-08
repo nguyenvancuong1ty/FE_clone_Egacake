@@ -39,13 +39,19 @@ function CakeDetail() {
 
     const handleAddProduct = () => {
         if(!localStorage.getItem('isLogin')) {
-            toast.warning('Thất bại! Bạn chưa đăng nhập !', {
+            toast.warning('Vui lòng đăng nhập !', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
             });
         }
         else if (isBought) {
-            toast.warning('Thất bại! Mặt hàng này đã hết hoặc đã có trong giỏ !', {
+            toast.warning('Mặt hàng đã có trong giỏ !', {
+                position: toast.POSITION.TOP_RIGHT,
+                autoClose: 2000,
+            });
+        }
+        else if(data.inventory < 1) {
+            toast.warning('Hết hàng !', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
             });
@@ -53,7 +59,7 @@ function CakeDetail() {
         else if (!isBought){
             setIsBought(true);
             axios
-                .post('https://18.143.149.62:3000/v1/api/cake_by_cart', {
+                .post('https://cakebyme.shop:3000/v1/api/cake_by_cart', {
                     userId: localStorage.getItem('user_id'),
                     cakeId: data.id,
                 })
