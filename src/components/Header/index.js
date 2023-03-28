@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cart from '../Cart';
+import Search from '../Search';
 function Header() {
     const navigate = useNavigate();
     const numberProduct = localStorage.getItem('number_product');
@@ -31,12 +32,7 @@ function Header() {
                         />
                     </div>
                     <div className="col-xl-5">
-                        <div className="header-input">
-                            <input type="text" placeholder="Ban can gi?" />
-                            <div className="header__input--icon">
-                                <i className="fa-solid fa-magnifying-glass"></i>
-                            </div>
-                        </div>
+                            <Search />
                     </div>
                     <div className="col-xl-4">
                         <ul className="header__opstion">

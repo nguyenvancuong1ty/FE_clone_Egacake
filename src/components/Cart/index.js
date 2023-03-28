@@ -37,6 +37,8 @@ function Cart(props) {
         console.log(props.prevQuantity);
     };
 
+    
+
     const handleDecrease = (item) => {
         setIdCakeDetele(item.cakeId);
         const newQuantity = item.total_quantity - 1;

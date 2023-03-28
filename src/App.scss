@@ -80,6 +80,7 @@ header {
     width: 100%;
     border-radius: 999px;
     border: 1px solid #ccc;
+    position: relative;
 }
 
 .header-input input {
@@ -99,6 +100,7 @@ header {
     border-bottom-right-radius: 25px;
     background-color: #fabd0d;
     color: white;
+    cursor: pointer;
 }
 
 .header__opstion {
