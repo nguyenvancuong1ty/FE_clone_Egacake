@@ -3,9 +3,7 @@ import axios from 'axios';
 import './Loading.scss';
 export const useFetch = (method, url, options) => {
     const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
     useEffect(() => {
-        setLoading(true);
         const fetchData = async () => {
             await axios({
                 method: method,
@@ -14,11 +12,9 @@ export const useFetch = (method, url, options) => {
             })
                 .then((res) => {
                     setData(res.data.data);
-                    setLoading(false);
                 })
                 .catch((err) => {
                     console.log('error');
-                    setLoading(false);
                 });
             };
             fetchData();
