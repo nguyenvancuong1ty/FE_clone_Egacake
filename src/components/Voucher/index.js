@@ -3,7 +3,7 @@ import { toast, ToastContainer } from 'react-toastify';
 function Voucher({ item, click }) {
     const text= item.code;
     const handleCopyClick = () => {
-        navigator.clipboard.writeText(text);
+        navigator.clipboard && navigator.clipboard.writeText(text);
         copySuccess();
       };
     const copySuccess = () => {

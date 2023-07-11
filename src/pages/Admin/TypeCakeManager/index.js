@@ -88,7 +88,7 @@ function TypeCakeManager() {
     };
     return (
         <>
-        <Header/>
+            <Header />
             <div className="mt-120"></div>
             <div className="container">
                 <table className="table table-success">
@@ -101,7 +101,7 @@ function TypeCakeManager() {
                         </tr>
                     </thead>
                     <tbody>
-                    {isLoading && <Loading colspan={4}/>}
+                        {isLoading && <Loading colspan={4} />}
                         {data &&
                             data.map((item, index) => {
                                 return (
@@ -110,10 +110,10 @@ function TypeCakeManager() {
                                             <th scope="row">{item.categoryCake}</th>
                                             <td>{item.nameCategory}</td>
                                             <td>
-                                                <img alt="" src={item.iconLink} />
+                                                <img alt="" src={item.iconLink} style={{ width: 30, height: 30 }} />
                                             </td>
                                             <td>
-                                            <Button
+                                                <Button
                                                     click={() => {
                                                         handleDelete(item.categoryCake);
                                                     }}
