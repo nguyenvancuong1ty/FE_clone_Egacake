@@ -21,7 +21,7 @@ function UsersManager() {
     }, [res]);
     const handleDelete = (userId) => {
         axios
-            .delete('https://cakebyme.shop:3000/v1/api/users', {
+            .delete(`${process.env.REACT_APP_URL}v1/api/users`, {
                 data: { id: userId },
             })
             .then((response) => {
@@ -62,11 +62,11 @@ function UsersManager() {
                                             <td>
                                                 <Button
                                                     click={() => {
-                                                        setShow(true)
+                                                        setShow(true);
                                                         setIdDelete(item.id);
                                                     }}
-                                                    value = 'Xóa'
-                                                 />
+                                                    value="Xóa"
+                                                />
                                             </td>
                                         </tr>
                                     )
@@ -74,7 +74,16 @@ function UsersManager() {
                             })}
                     </tbody>
                 </table>
-                { isShow && <Modal isShow = {isShow} type = "User" clickShow = {() => {setShow(false)}} clickOk = {() => handleDelete(idDelete)} /> }          
+                {isShow && (
+                    <Modal
+                        isShow={isShow}
+                        type="User"
+                        clickShow={() => {
+                            setShow(false);
+                        }}
+                        clickOk={() => handleDelete(idDelete)}
+                    />
+                )}
             </div>
         </>
     );

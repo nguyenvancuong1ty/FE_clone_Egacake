@@ -22,10 +22,10 @@ function RecipeManager() {
             setLoading(false);
         }, 500);
     }, [res]);
-    
+
     const handleDelete = (id) => {
         axios
-            .delete('https://cakebyme.shop:3000/v1/api/news', {
+            .delete(`${process.env.REACT_APP_URL}v1/api/news`, {
                 data: { id: id },
             })
             .then((response) => {
@@ -42,11 +42,12 @@ function RecipeManager() {
     const handleSubmit = () => {
         if (typeSubmit === 'add') {
             axios
-                .post('https://cakebyme.shop:3000/v1/api/news', {
-                id: id,
-                title: title,
-                images: images,
-                detail: detail})
+                .post(`${process.env.REACT_APP_URL}v1/api/news`, {
+                    id: id,
+                    title: title,
+                    images: images,
+                    detail: detail,
+                })
                 .then((response) => {
                     setData(response.data.data);
                     setShow(false);
@@ -56,11 +57,11 @@ function RecipeManager() {
                 });
         } else if (typeSubmit === 'update') {
             axios
-                .put('https://cakebyme.shop:3000/v1/api/news', {
+                .put(`${process.env.REACT_APP_URL}v1/api/news`, {
                     id: id,
                     title: title,
                     images: images,
-                    detail: detail
+                    detail: detail,
                 })
                 .then((response) => {
                     setData(response.data.data);
@@ -88,37 +89,39 @@ function RecipeManager() {
                         </tr>
                     </thead>
                     <tbody>
-                        {isloading && <Loading colspan={6}/>}
+                        {isloading && <Loading colspan={6} />}
                         {data &&
                             data.map((item, index) => {
                                 return (
                                     <tr key={index}>
                                         <th scope="row">{item.id}</th>
                                         <td>{item.title}</td>
-                                        <td>{item.detail.slice(0,30)}...</td>
+                                        <td>{item.detail.slice(0, 30)}...</td>
                                         <td>
                                             <img src={item.images} alt="" style={{ width: '50px', height: '50px' }} />
                                         </td>
                                         <td>{item.dateCreate}</td>
-                                        <td> <Button
-                                                    click={() => {
-                                                        handleDelete(item.id);
-                                                    }}
-                                                    value="Xóa"
-                                                ></Button>
-                                                <Button
-                                                    class = "mt-1"
-                                                    value="Sửa"
-                                                    click={() => {
-                                                        setId(item.id);
-                                                        setTitle(item.title);
-                                                        setImages(item.images);
-                                                        setSubmit('update');
-                                                        setDetail(item.detail);
-                                                        setShow(true);
-                                                    }}
-                                                />
-                                            </td>
+                                        <td>
+                                            {' '}
+                                            <Button
+                                                click={() => {
+                                                    handleDelete(item.id);
+                                                }}
+                                                value="Xóa"
+                                            ></Button>
+                                            <Button
+                                                class="mt-1"
+                                                value="Sửa"
+                                                click={() => {
+                                                    setId(item.id);
+                                                    setTitle(item.title);
+                                                    setImages(item.images);
+                                                    setSubmit('update');
+                                                    setDetail(item.detail);
+                                                    setShow(true);
+                                                }}
+                                            />
+                                        </td>
                                     </tr>
                                 );
                             })}

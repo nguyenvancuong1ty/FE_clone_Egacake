@@ -7,7 +7,7 @@ export const useFetch = (method, url, options) => {
         const fetchData = async () => {
             await axios({
                 method: method,
-                url: `https://cakebyme.shop:3000/${url}`,
+                url: `${process.env.REACT_APP_URL}${url}`,
                 data: options,
             })
                 .then((res) => {
@@ -16,9 +16,9 @@ export const useFetch = (method, url, options) => {
                 .catch((err) => {
                     console.log('error');
                 });
-            };
-            fetchData();
-    }, [url, method,options]);
+        };
+        fetchData();
+    }, [url, method, options]);
 
     // nếu quá trình lấy dữ liệu chưa hoàn tất, trả về một giá trị rỗng hoặc một thông báo loading
     // nếu quá trình lấy dữ liệu đã hoàn tất, trả về dữ liệu

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate ,useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Header from '~/components/Header';
 import { useFetch } from '~/hooks/useFetch';
 import { toast, ToastContainer } from 'react-toastify';
@@ -38,28 +38,25 @@ function CakeDetail() {
     }, [cakedetail, id]);
 
     const handleAddProduct = () => {
-        if(!localStorage.getItem('isLogin')) {
+        if (!localStorage.getItem('isLogin')) {
             toast.warning('Vui lòng đăng nhập !', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
             });
-        }
-        else if (isBought) {
+        } else if (isBought) {
             toast.warning('Mặt hàng đã có trong giỏ !', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
             });
-        }
-        else if(data.inventory < 1) {
+        } else if (data.inventory < 1) {
             toast.warning('Hết hàng !', {
                 position: toast.POSITION.TOP_RIGHT,
                 autoClose: 2000,
             });
-        }
-        else if (!isBought){
+        } else if (!isBought) {
             setIsBought(true);
             axios
-                .post('https://cakebyme.shop:3000/v1/api/cake_by_cart', {
+                .post(`${process.env.REACT_APP_URL}v1/api/cake_by_cart`, {
                     userId: localStorage.getItem('user_id'),
                     cakeId: data.id,
                 })
@@ -68,7 +65,7 @@ function CakeDetail() {
                         position: toast.POSITION.TOP_RIGHT,
                         autoClose: 1000,
                     });
-                    localStorage.setItem("number_product",localStorage.getItem("number_product")*1+1)
+                    localStorage.setItem('number_product', localStorage.getItem('number_product') * 1 + 1);
                     setTimeout(() => {
                         navigate('/cakes');
                     }, 2000);
@@ -111,7 +108,7 @@ function CakeDetail() {
                             Thêm vào giỏ hàng
                         </button>
                         <div className="product-description">
-                        <h2 className="product-section-title">Mô tả</h2>
+                            <h2 className="product-section-title">Mô tả</h2>
                             <p className="product-text">{data.detail}</p>
                         </div>
                     </div>

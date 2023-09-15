@@ -31,25 +31,24 @@ function CakeManager() {
     }, [res]);
 
     useEffect(() => {
-        setCurrent(parseInt(data.length / 10) === 0?data.length/10 : Math.ceil(data.length/10));
+        setCurrent(parseInt(data.length / 10) === 0 ? data.length / 10 : Math.ceil(data.length / 10));
         setItems(Array.from({ length: current }).map((_, i) => i));
-    },[data,current])
+    }, [data, current]);
 
     useEffect(() => {
         items.length > 0 && setCurrentPage(items.length);
-    },[items.length])
+    }, [items.length]);
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete('https://cakebyme.shop:3000/v1/api/cakeDetail', {
-            data: { id: id },
-          });
-          setData(data.filter((item) => item.id !== id));
+            await axios.delete(`${process.env.REACT_APP_URL}v1/api/cakeDetail`, {
+                data: { id: id },
+            });
+            setData(data.filter((item) => item.id !== id));
         } catch (error) {
-          console.log('error', error);
+            console.log('error', error);
         }
-      };
-      
+    };
 
     const handleAdd = () => {
         setShow(true);
@@ -57,7 +56,16 @@ function CakeManager() {
     const handleSubmit = () => {
         if (typeSubmit === 'add') {
             axios
-                .post('https://cakebyme.shop:3000/v1/api/cakeDetail', { categoryCake: categoryCake, images:images, nameCake: nameCake, price: price, sold: sold, inventory : inventory, sale: sale, detail: detail })
+                .post(`${process.env.REACT_APP_URL}v1/api/cakeDetail`, {
+                    categoryCake: categoryCake,
+                    images: images,
+                    nameCake: nameCake,
+                    price: price,
+                    sold: sold,
+                    inventory: inventory,
+                    sale: sale,
+                    detail: detail,
+                })
                 .then((response) => {
                     setData(response.data.data);
                     setShow(false);
@@ -67,10 +75,16 @@ function CakeManager() {
                 });
         } else if (typeSubmit === 'update') {
             axios
-                .put('https://cakebyme.shop:3000/v1/api/cakeDetail', {
+                .put(`${process.env.REACT_APP_URL}v1/api/cakeDetail`, {
                     id: id,
-                    categoryCake: categoryCake, images:images,
-                    nameCake: nameCake,price: price, sold: sold, inventory : inventory, sale: sale, detail: detail
+                    categoryCake: categoryCake,
+                    images: images,
+                    nameCake: nameCake,
+                    price: price,
+                    sold: sold,
+                    inventory: inventory,
+                    sale: sale,
+                    detail: detail,
                 })
                 .then((response) => {
                     setData(response.data.data);
@@ -82,9 +96,8 @@ function CakeManager() {
         }
     };
 
-    
     return (
-        <> 
+        <>
             <Header />
             <div className="mt-120"></div>
             <div className="container">
@@ -103,34 +116,41 @@ function CakeManager() {
                         </tr>
                     </thead>
                     <tbody>
-                    {isloading && <Loading colspan={10}/>}
+                        {isloading && <Loading colspan={10} />}
                         {data &&
                             data.map((item, index) => {
                                 return (
-                                    index +1 <= currentPage*10 && index+1 >= currentPage*10-9 &&
-                                    <tr key={index}>
-                                        <td>{item.categoryCake}</td>
-                                        <td>{item.nameCake}</td>
-                                        <td>{item.price}</td>
-                                        <td>{item.sold}</td>
-                                        <td>{item.inventory}</td>
-                                        <td>
-                                            <img alt="" src={item.images} style={{ width: '50px', height: '50px' }} />
-                                        </td>
-                                        <td>{item.sale}%</td>
-                                        <td>{item.detail.slice(0, 30)}...</td>
-                                        <td><Button
-                                            id={item.id}
-                                            style={{ cursor: 'pointer' }}
-                                            click={() => {
-                                                handleDelete(item.id);
-                                            }}
-                                            value = "Xóa" />
-                                            <Button 
-                                                    class = "mt-1"
+                                    index + 1 <= currentPage * 10 &&
+                                    index + 1 >= currentPage * 10 - 9 && (
+                                        <tr key={index}>
+                                            <td>{item.categoryCake}</td>
+                                            <td>{item.nameCake}</td>
+                                            <td>{item.price}</td>
+                                            <td>{item.sold}</td>
+                                            <td>{item.inventory}</td>
+                                            <td>
+                                                <img
+                                                    alt=""
+                                                    src={item.images}
+                                                    style={{ width: '50px', height: '50px' }}
+                                                />
+                                            </td>
+                                            <td>{item.sale}%</td>
+                                            <td>{item.detail.slice(0, 30)}...</td>
+                                            <td>
+                                                <Button
+                                                    id={item.id}
+                                                    style={{ cursor: 'pointer' }}
+                                                    click={() => {
+                                                        handleDelete(item.id);
+                                                    }}
+                                                    value="Xóa"
+                                                />
+                                                <Button
+                                                    class="mt-1"
                                                     value="Sửa"
                                                     click={() => {
-                                                        setId(item.id)
+                                                        setId(item.id);
                                                         setCategoryCake(item.categoryCake);
                                                         setNameCake(item.nameCake);
                                                         setPrice(item.price);
@@ -143,17 +163,29 @@ function CakeManager() {
                                                         setShow(true);
                                                     }}
                                                 />
-                                                </td>
-                                    </tr>
-                                                );
+                                            </td>
+                                        </tr>
+                                    )
+                                );
                             })}
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colSpan={11}>
-                               {items && items.map((num) => {
-                                return (<button className={currentPage === num+1 ?'active':'' } key={num} onClick={() => {setCurrentPage(num+1)}}>{num+1}</button>)
-                               })}
+                                {items &&
+                                    items.map((num) => {
+                                        return (
+                                            <button
+                                                className={currentPage === num + 1 ? 'active' : ''}
+                                                key={num}
+                                                onClick={() => {
+                                                    setCurrentPage(num + 1);
+                                                }}
+                                            >
+                                                {num + 1}
+                                            </button>
+                                        );
+                                    })}
                             </td>
                         </tr>
                         <tr>

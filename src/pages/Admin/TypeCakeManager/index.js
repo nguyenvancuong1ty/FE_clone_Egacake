@@ -43,7 +43,7 @@ function TypeCakeManager() {
 
     const handleDelete = (id) => {
         axios
-            .delete('https://cakebyme.shop:3000/v1/api/cakes', {
+            .delete(`${process.env.REACT_APP_URL}v1/api/cakes`, {
                 data: { id: id },
             })
             .then((response) => {
@@ -60,7 +60,7 @@ function TypeCakeManager() {
     const handleSubmit = () => {
         if (typeSubmit === 'add') {
             axios
-                .post('https://cakebyme.shop:3000/v1/api/cakes', { nameCategory: nameCategory, iconLink: iconLink })
+                .post(`${process.env.REACT_APP_URL}v1/api/cakes`, { nameCategory: nameCategory, iconLink: iconLink })
                 .then((response) => {
                     addSuccess();
                     setData(response.data.data);
@@ -71,7 +71,7 @@ function TypeCakeManager() {
                 });
         } else if (typeSubmit === 'update') {
             axios
-                .put('https://cakebyme.shop:3000/v1/api/cakes', {
+                .put(`${process.env.REACT_APP_URL}v1/api/cakes`, {
                     categoryCake: id,
                     nameCategory: nameCategory,
                     iconLink: iconLink,

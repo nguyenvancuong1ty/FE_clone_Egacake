@@ -4,7 +4,6 @@ import './App.scss';
 import Footer from './components/footer/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import router from './routers';
-import Message from './components/Facebook/Fb.message';
 function App() {
     const [isShow, setShow] = useState(false);
     useEffect(() => {
@@ -43,7 +42,6 @@ function App() {
                 />
             </button>
             <Footer />
-            <Message />
         </Router>
     );
 }

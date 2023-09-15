@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import Header from '~/components/Header';
 import md5 from 'md5';
 function Register() {
-
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
@@ -116,7 +115,7 @@ function Register() {
             confirm === password &&
             regex.test(email)
         ) {
-            fetch('https://cakebyme.shop:3000/v1/api/users', {
+            fetch(`${process.env.REACT_APP_URL}v1/api/users`, {
                 method: 'post',
                 body: JSON.stringify(formData),
                 headers: {

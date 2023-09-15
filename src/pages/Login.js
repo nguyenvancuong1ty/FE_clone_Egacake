@@ -31,21 +31,23 @@ function Login() {
         setPassword(event.target.value);
     };
     const handleSubmit = () => {
-        axios.post('https://cakebyme.shop:3000/v1/api/login',
-            {
+        axios
+            .post(`${process.env.REACT_APP_URL}v1/api/login`, {
                 username: username,
                 password: md5(password),
-            }).then((res) => {
-            if (res.data.statusCode) {
-                localStorage.setItem('user_id', res.data.data[0].id);
-                localStorage.setItem('isLogin', true);
-                successLogin();
-                res.data.data[0].authorization === 1 ? navigate('/admin/manager/users') : navigate('/');
-            } else {
-                errorLogin();
-                inputRef.current.focus();
-            }
-        }).then(e => console.log('error', e));
+            })
+            .then((res) => {
+                if (res.data.statusCode) {
+                    localStorage.setItem('user_id', res.data.data[0].id);
+                    localStorage.setItem('isLogin', true);
+                    successLogin();
+                    res.data.data[0].authorization === 1 ? navigate('/admin/manager/users') : navigate('/');
+                } else {
+                    errorLogin();
+                    inputRef.current.focus();
+                }
+            })
+            .then((e) => console.log('error', e));
     };
     return (
         <>
@@ -62,7 +64,7 @@ function Login() {
                         value={username}
                         name="username"
                         className="login__input--input"
-                        autoComplete='username'
+                        autoComplete="username"
                         onChange={handleUsernameChange}
                     />
                 </div>
@@ -74,7 +76,7 @@ function Login() {
                         ref={inputRef}
                         type="password"
                         name="password"
-                        autoComplete='current-password'
+                        autoComplete="current-password"
                         className="login__input--input"
                         value={password}
                         onChange={handlePasswordChange}

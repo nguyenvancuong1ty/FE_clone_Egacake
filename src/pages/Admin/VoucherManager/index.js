@@ -22,10 +22,10 @@ function VoucherManager() {
             setLoading(false);
         }, 500);
     }, [res]);
-    
+
     const handleDelete = (id) => {
         axios
-            .delete('https://cakebyme.shop:3000/v1/api/voucher', {
+            .delete(`${process.env.REACT_APP_URL}v1/api/voucher`, {
                 data: { id: id },
             })
             .then((response) => {
@@ -42,10 +42,11 @@ function VoucherManager() {
     const handleSubmit = () => {
         if (typeSubmit === 'add') {
             axios
-                .post('https://cakebyme.shop:3000/v1/api/voucher', {
+                .post(`${process.env.REACT_APP_URL}v1/api/voucher`, {
                     code: code,
                     requirement: requirement,
-                    detail: detail})
+                    detail: detail,
+                })
                 .then((response) => {
                     setData(response.data.data);
                     setShow(false);
@@ -55,11 +56,11 @@ function VoucherManager() {
                 });
         } else if (typeSubmit === 'update') {
             axios
-                .put('https://cakebyme.shop:3000/v1/api/voucher', {
+                .put(`${process.env.REACT_APP_URL}v1/api/voucher`, {
                     id: id,
                     code: code,
                     requirement: requirement,
-                    detail: detail
+                    detail: detail,
                 })
                 .then((response) => {
                     setData(response.data.data);
@@ -87,35 +88,42 @@ function VoucherManager() {
                         </tr>
                     </thead>
                     <tbody>
-                        {isloading && <Loading colspan={6}/>}
+                        {isloading && <Loading colspan={6} />}
                         {data &&
                             data.map((item, index) => {
                                 return (
                                     <tr key={index}>
                                         <th scope="row">{item.id}</th>
                                         <td>{item.code}</td>
-                                        <td>{item.detail.length > 30 ? item.detail.slice(0,30): item.detail}...</td>
-                                        <td>{item.requirement.length > 30?item.requirement.slice(0,30): item.requirement}...</td>
+                                        <td>{item.detail.length > 30 ? item.detail.slice(0, 30) : item.detail}...</td>
+                                        <td>
+                                            {item.requirement.length > 30
+                                                ? item.requirement.slice(0, 30)
+                                                : item.requirement}
+                                            ...
+                                        </td>
                                         <td>{item.dateCreate}</td>
-                                        <td> <Button
-                                                    click={() => {
-                                                        handleDelete(item.id);
-                                                    }}
-                                                    value="Xóa"
-                                                ></Button>
-                                                <Button
-                                                    class = "mt-1"
-                                                    value="Sửa"
-                                                    click={() => {
-                                                        setCode(item.code);
-                                                        setDetail(item.detail);
-                                                        setRequirement(item.requirement);
-                                                        setId(item.id);
-                                                        setShow(true);
-                                                        setSubmit('update')
-                                                    }}
-                                                />
-                                            </td>
+                                        <td>
+                                            {' '}
+                                            <Button
+                                                click={() => {
+                                                    handleDelete(item.id);
+                                                }}
+                                                value="Xóa"
+                                            ></Button>
+                                            <Button
+                                                class="mt-1"
+                                                value="Sửa"
+                                                click={() => {
+                                                    setCode(item.code);
+                                                    setDetail(item.detail);
+                                                    setRequirement(item.requirement);
+                                                    setId(item.id);
+                                                    setShow(true);
+                                                    setSubmit('update');
+                                                }}
+                                            />
+                                        </td>
                                     </tr>
                                 );
                             })}
