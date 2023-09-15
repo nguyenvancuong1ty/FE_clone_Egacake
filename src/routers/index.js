@@ -1,15 +1,15 @@
-import Home from '~/pages/Home';
-import Intro from '~/pages/Intro';
-import Login from '~/pages/Login';
-import Register from '~/pages/Register';
-import Map from '~/pages/Map';
-import Cakes from '~/pages/Cakes';
-import Sales from '~/pages/Sales';
-import CakeRecipe from '~/pages/CakeRecipe';
-import News from '~/pages/News';
-import Contact from '~/pages/Contact';
-import CakeDetail from '~/pages/Detail/Cakedetail';
-import AdmHome from '~/pages/Admin/Home';
+import Home from '../pages/Home';
+import Intro from '../pages/Intro';
+import Login from '../pages/Login';
+import Register from '../pages/Register';
+import Map from '../pages/Map';
+import Cakes from '../pages/Cakes';
+import Sales from '../pages/Sales';
+import CakeRecipe from '../pages/CakeRecipe';
+import News from '../pages/News';
+import Contact from '../pages/Contact';
+import CakeDetail from '../pages/Detail/Cakedetail';
+import AdmHome from '../pages/Admin/Home';
 const router = [
     {
         path: '/',
@@ -77,7 +77,7 @@ const router = [
         path: '/Admin/*',
         component: <AdmHome />,
         layout: '',
-    }
+    },
 ];
 
 export default router;
